@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}
+Image Encryption
+{% endblock %}
+
+{% block content %}
+
+<div class="main-container">
+
+    <div class="cards-wrapper">
+
+        <!-- ENCRYPT IMAGE CARD -->
+        <div class="aes-card">
+
+            <h3 class="card-title text-success">
+                🔒 Encrypt Image
+            </h3>
+
+            <form action="/encrypt-image"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <!-- File Upload -->
+                <label class="upload-box">
+
+                    <input
+                        type="file"
+                        id="encryptFile"
+                        name="imageFile"
+                        accept="image/*"
+                        multiple
+                        required>
+
+                    <h5>Select Image</h5>
+
+                    <small id="encryptFileName">
+                        Click to browse or drag & drop
+                    </small>
+
+                </label>
+
+                <hr>
+
+                <!-- AES Key -->
+                <input
+                    type="password"
+                    id="enc_key"
+                    name="key"
+                    maxlength="32"
+                    class="form-control"
+                    placeholder="Enter 32 Character AES Key"
+                    required>
+
+                <small id="encCounter">
+                    0 / 32 characters
+                </small>
+
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        onclick="generateKey('enc_key')">
+                    🎲 Generate Key
+                </button>
+
+                <button type="button"
+                        class="btn btn-outline-success copy-btn"
+                        onclick="copyToClipboard('enc_key', this)">📋
+                </button>
+
+                <br><br>
+
+                <button
+                    type="submit"
+                    class="btn btn-success btn-custom">
+
+                    Encrypt Image & Download
+
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="divider"></div>
+
+        <!-- DECRYPT IMAGE CARD -->
+        <div class="aes-card">
+
+            <h3 class="card-title text-primary">
+                🔓 Decrypt Image
+            </h3>
+
+            <form action="/decrypt-image"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <!-- File Upload -->
+                <label class="upload-box">
+
+                    <input
+                        type="file"
+                        id="decryptFile"
+                        name="imageFile"
+                        accept=".enc"
+                        multiple
+                        required>
+
+                    <h5>Select Encrypted File</h5>
+
+                    <small id="decryptFileName">
+                        Click to browse encrypted file
+                    </small>
+
+                </label>
+
+                <hr>
+
+                <!-- AES Key -->
+                <input
+                    type="password"
+                    id="dec_key"
+                    name="key"
+                    maxlength="32"
+                    class="form-control"
+                    placeholder="Enter 32 Character AES Key"
+                    required>
+
+                <small id="decCounter">
+                    0 / 32 characters
+                </small>
+
+                <button type="button"
+                        class="btn btn-outline-primary copy-btn"
+                        onclick="copyToClipboard('dec_key', this)">📋 
+                </button>
+
+                <br><br>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-custom">
+
+                    Decrypt Image & Download
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="container d-flex justify-content-center mt-5">
+
+    <div class="info-box">
+
+        <h2>Image AES Encryption System</h2>
+
+        <p>
+            This module extends AES encryption to images by converting
+            image files into raw binary data and encrypting them using
+            a custom AES-256 implementation written in C++.
+        </p>
+
+        <hr>
+
+        <h4>How Image Encryption Works</h4>
+
+        <ol>
+            <li>Image file is read as raw binary data (not text).</li>
+            <li>Data is split into 16-byte AES blocks.</li>
+            <li>AES-256 encryption is applied to each block.</li>
+            <li>Encrypted binary is saved as <strong>.enc file</strong>.</li>
+            <li>For decryption, the process is reversed to restore the image.</li>
+        </ol>
+
+        <hr>
+
+        <h4>Supported Features</h4>
+
+        <ul>
+            <li>Single image encryption & decryption</li>
+            <li>Batch multiple image processing</li>
+            <li>ZIP output for encrypted/decrypted files</li>
+            <li>Secure AES-256 key-based encryption</li>
+        </ul>
+
+        <hr>
+
+        <h4>Technical Workflow</h4>
+
+        <ul>
+            <li>Flask handles file upload and temporary storage</li>
+            <li>C++ AES engine processes encryption/decryption</li>
+            <li>Binary-safe file handling (no UTF-8 conversion)</li>
+            <li>Temporary files are cleaned after processing</li>
+        </ul>
+
+        <hr>
+
+        <h4>Important Note</h4>
+
+        <p>
+            Images are treated as binary streams, not text.
+            This ensures lossless encryption and accurate restoration
+            after decryption.
+        </p>
+
+        <hr>
+
+        <h4>Output Format</h4>
+
+        <ul>
+            <li>Encrypted files → <code>.enc</code></li>
+            <li>Decrypted files → original image format (.png, .jpg, etc.)</li>
+            <li>Batch operations → downloadable ZIP archive</li>
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script
+src="{{ url_for(
+    'static',
+    filename='js/image.js'
+) }}">
+</script>
+
+{% endblock %}
