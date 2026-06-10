@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // FILE NAME DISPLAY
     // ===============================
     function setupFileInput(fileInputId, labelId) {
-
         const fileInput = document.getElementById(fileInputId);
         const label = document.getElementById(labelId);
 
@@ -70,9 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function copyToClipboard(inputId, button) {
-
     const input = document.getElementById(inputId);
-
     if (!input) return;
 
     navigator.clipboard.writeText(input.value)
@@ -91,9 +88,7 @@ function copyToClipboard(inputId, button) {
         });
 }
 function generateKey(inputId) {
-
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
     let key = "";
 
     for (let i = 0; i < 32; i++) {

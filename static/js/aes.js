@@ -1,35 +1,26 @@
-
 document
     .querySelector('form[action="/encrypt"]')
     .addEventListener("submit", function(e){
-
         if(
             document
             .getElementById("enc_key")
             .value.length != 32
         ){
             e.preventDefault();
-
-            alert(
-                "AES-256 Key must be exactly 32 characters."
-            );
+            alert("AES-256 Key must be exactly 32 characters.");
         }
     });
 
 document
     .querySelector('form[action="/decrypt"]')
     .addEventListener("submit", function(e){
-
         if(
             document
             .getElementById("dec_key")
             .value.length != 32
         ){
             e.preventDefault();
-
-            alert(
-                "AES-256 Key must be exactly 32 characters."
-            );
+            alert("AES-256 Key must be exactly 32 characters.");
         }
     });
 
@@ -37,9 +28,7 @@ document
 document
     .getElementById("encryptFile")
     .addEventListener("change", function(){
-
-        if(this.files.length > 0)
-        {
+        if(this.files.length > 0){
             document
             .getElementById("encryptFileName")
             .innerText =
@@ -51,9 +40,7 @@ document
 document
     .getElementById("decryptFile")
     .addEventListener("change", function(){
-
-        if(this.files.length > 0)
-        {
+        if(this.files.length > 0){
             document
             .getElementById("decryptFileName")
             .innerText =
@@ -76,8 +63,7 @@ encKey.addEventListener("input", ()=>{
         encCounter.innerHTML = "✔";
     }
     else{
-        encCounter.innerHTML =
-        `${encKey.value.length}/32 characters`;
+        encCounter.innerHTML = `${encKey.value.length}/32 characters`;
     }
 
 });
@@ -96,26 +82,17 @@ decKey.addEventListener("input", ()=>{
         decCounter.innerHTML = "✔";
     }
     else{
-        decCounter.innerHTML =
-        `${decKey.value.length}/32 characters`;
+        decCounter.innerHTML = `${decKey.value.length}/32 characters`;
     }
 
 });
 
 function generateKey() {
-
-    const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
     let key = "";
 
-    for(let i=0;i<32;i++)
-    {
-        key += chars[
-            Math.floor(
-                Math.random() * chars.length
-            )
-        ];
+    for(let i=0;i<32;i++){
+        key += chars[Math.floor(Math.random() * chars.length)];
     }
 
     const keyInput =

@@ -32,7 +32,7 @@ extern unsigned char mul11[256];
 extern unsigned char mul13[256];
 extern unsigned char mul14[256];
 
-// 🔴 IMPORTANT: You already have these implemented in aes.cpp
+
 void KeyExpansion(const unsigned char* key, unsigned char* expKey);
 void AES_Encrypt(unsigned char* buf, const unsigned char* key);
 void AES_Decrypt(unsigned char* buf, const unsigned char* key);
@@ -134,7 +134,6 @@ int main(int argc, char* argv[]) {
     string outputFile = argv[3];
     string userKey = argv[4];
 
-    // AES-256 key (32 bytes)
     unsigned char key[32];
     memset(key, 0, 32);
 

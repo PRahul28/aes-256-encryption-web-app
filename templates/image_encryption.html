@@ -7,10 +7,7 @@ Image Encryption
 {% block content %}
 
 <div class="main-container">
-
     <div class="cards-wrapper">
-
-        <!-- ENCRYPT IMAGE CARD -->
         <div class="aes-card">
 
             <h3 class="card-title text-success">
@@ -20,10 +17,7 @@ Image Encryption
             <form action="/encrypt-image"
                   method="POST"
                   enctype="multipart/form-data">
-
-                <!-- File Upload -->
                 <label class="upload-box">
-
                     <input
                         type="file"
                         id="encryptFile"
@@ -41,8 +35,6 @@ Image Encryption
                 </label>
 
                 <hr>
-
-                <!-- AES Key -->
                 <input
                     type="password"
                     id="enc_key"
@@ -81,21 +73,18 @@ Image Encryption
 
         </div>
 
-        <!-- DIVIDER -->
+
+
         <div class="divider"></div>
 
-        <!-- DECRYPT IMAGE CARD -->
         <div class="aes-card">
-
             <h3 class="card-title text-primary">
                 🔓 Decrypt Image
             </h3>
-
             <form action="/decrypt-image"
                   method="POST"
                   enctype="multipart/form-data">
 
-                <!-- File Upload -->
                 <label class="upload-box">
 
                     <input
@@ -116,7 +105,6 @@ Image Encryption
 
                 <hr>
 
-                <!-- AES Key -->
                 <input
                     type="password"
                     id="dec_key"

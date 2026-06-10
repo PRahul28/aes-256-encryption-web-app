@@ -2,6 +2,7 @@ from flask import (Flask, render_template, request, send_file)
 import subprocess
 import tempfile
 import os
+import zipfile
 from flask import after_this_request
 
 
@@ -28,12 +29,6 @@ def image_encryption():
 @app.route('/encrypt-image', methods=['POST'])
 def encrypt_image():
 
-    import os
-    import tempfile
-    import subprocess
-    import zipfile
-    from flask import request, send_file, after_this_request
-
     files = request.files.getlist('imageFile')
     key = request.form['key']
 
@@ -46,17 +41,13 @@ def encrypt_image():
     zip_path = tempfile.mktemp(suffix=".zip")
 
     for file in files:
+        if not file.filename: continue
 
-        if not file.filename:
-            continue
-
-        # INPUT TEMP FILE
         input_temp = tempfile.NamedTemporaryFile(delete=False)
         input_path = input_temp.name
         file.save(input_path)
         input_temp.close()
 
-        # OUTPUT TEMP FILE
         output_temp = tempfile.NamedTemporaryFile(delete=False, suffix=".enc")
         output_path = output_temp.name
         output_temp.close()
@@ -72,7 +63,6 @@ def encrypt_image():
         temp_inputs.append(input_path)
         temp_outputs.append(output_path)
 
-    # CREATE ZIP
     with zipfile.ZipFile(zip_path, 'w') as zipf:
         for i, out_file in enumerate(temp_outputs):
             zipf.write(out_file, f"encrypted_{i}.enc")
@@ -98,17 +88,10 @@ def encrypt_image():
 @app.route('/decrypt-image', methods=['POST'])
 def decrypt_image():
 
-    import os
-    import tempfile
-    import subprocess
-    import zipfile
-    from flask import request, send_file, after_this_request
-
     files = request.files.getlist('imageFile')
     key = request.form['key']
 
-    if not files:
-        return "No encrypted files provided"
+    if not files: return "No encrypted files provided"
 
     temp_inputs = []
     temp_outputs = []

@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
     <title>
         {% block title %}
         AES Project
@@ -21,14 +20,9 @@
 
 </head>
 <body>
-    
-    <!-- NAVBAR -->
 
     <nav class="navbar-custom d-flex align-items-center">
-
-        <!-- LEFT / CENTER LINKS -->
         <div class="nav-center d-flex mx-auto">
-
             <a href="/"
             class="nav-link {% if active_page == 'aes' %}active{% endif %}">
                 AES Encryption
@@ -38,30 +32,14 @@
             class="nav-link {% if active_page == 'image' %}active{% endif %}">
                 Image Encryption
             </a>
-
         </div>
-
-        <!-- RIGHT SIDE -->
         <div class="d-flex ms-right">
-
             <button id="themeToggle"
                     class="btn btn-dark theme-btn">
                 🌙 Dark 
             </button>
-
         </div>
-
     </nav>
-<!-- 
-    <button
-        id="themeToggle"
-        class="btn btn-dark theme-btn">
-
-        🌙 Dark Mode
-
-    </button> -->
-
-    <!-- PAGE CONTENT -->
 
     {% block content %}
     {% endblock %}
@@ -77,5 +55,4 @@
     {% endblock %}
 
 </body>
-
 </html>

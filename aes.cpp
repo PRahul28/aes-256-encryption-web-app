@@ -362,13 +362,10 @@ string EncryptMessage(const string& msg, const unsigned char* key) {
 
 
 string DecryptMessage(const string& hexCipher, const unsigned char* key) {
-
     vector<unsigned char> cipher = HexToBytes(hexCipher);
-
     int len = cipher.size();
 
     unsigned char* buffer = new unsigned char[len];
-
     memcpy(buffer, cipher.data(), len);
 
     for(int i = 0; i < len; i += 16) {
