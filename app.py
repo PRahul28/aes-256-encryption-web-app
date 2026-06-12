@@ -4,7 +4,7 @@ import tempfile
 import os
 import zipfile
 from flask import after_this_request
-
+from flask import jsonify
 
 
 
@@ -189,12 +189,9 @@ def encrypt():
     ciphertext = result.stdout.strip()
 
     if manual_text:
-
-        return render_template(
-                "index.html",
-                encrypted_text=ciphertext,
-                active_page='aes'
-            )
+        return jsonify({
+            "ciphertext": ciphertext
+        })
 
     else:
         original_name = os.path.splitext(
@@ -268,12 +265,9 @@ def decrypt():
     plaintext = result.stdout
 
     if manual_text:
-
-        return render_template(
-            "index.html",
-            decrypted_text=plaintext,
-            active_page='aes'
-        )
+        return jsonify({
+            "plaintext": plaintext
+        })
 
     else:
 
@@ -291,7 +285,6 @@ def decrypt():
             "w",
             encoding="utf-8"
         ) as f:
-
             f.write(plaintext)
 
         return send_file(

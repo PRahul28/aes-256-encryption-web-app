@@ -15,7 +15,9 @@ AES Encryption
                 🔒 Encrypt File
             </h3>
 
-            <form action="/encrypt"
+            <form
+                id="encryptForm"
+                action="/encrypt"
                 method="POST"
                 enctype="multipart/form-data">
 
@@ -50,7 +52,7 @@ AES Encryption
                     name="encryptText"
                     class="form-control"
                     rows="5"
-                    placeholder="Type text here instead of uploading a file">{%if encrypted_text %}{{ encrypted_text }}{% endif %}</textarea>
+                    placeholder="Type text here instead of uploading a file"></textarea>
                 <button
                     type="button"
                     class="btn btn-outline-success copy-btn"
@@ -123,9 +125,11 @@ AES Encryption
                 🔓 Decrypt File
             </h3>
 
-            <form action="/decrypt"
-                  method="POST"
-                  enctype="multipart/form-data">
+            <form
+                id="decryptForm"
+                action="/decrypt"
+                method="POST"
+                enctype="multipart/form-data">
 
                 <label class="upload-box">
 
@@ -150,7 +154,7 @@ AES Encryption
                     name="decryptText"
                     class="form-control"
                     rows="5"
-                    placeholder="Paste encrypted text here">{%if decrypted_text %}{{ decrypted_text }}{% endif %}</textarea>
+                    placeholder="Paste encrypted text here"></textarea>
                 <button
                     type="button"
                     class="btn btn-outline-primary copy-btn"
@@ -209,14 +213,28 @@ AES Encryption
         <h2>About AES-256 Encryption</h2>
 
         <p>
-            AES (Advanced Encryption Standard) is a
-            symmetric-key encryption algorithm used
+            <strong>Rijndael Algorithm</strong> is selected as the 
+            <strong>AES (Advanced Encryption Standard) </strong>
+            which is a symmetric-key encryption algorithm used
             worldwide to secure sensitive data.
-            The same secret key is used for both
-            encryption and decryption.
         </p>
 
         <hr>
+
+        <h4>Implementation</h4>
+        <p>
+            This project uses a custom <strong>AES-256</strong>
+            implementation written in <strong>C++</strong>.
+            Using the original research paper by <strong>Joan Daemen </strong> and <strong>Vincent Rijmen</strong>, 
+            the Core <strong>AES</strong> operations like
+            SubBytes, ShiftRows, MixColumns,
+            AddRoundKey, Key Expansion,
+            Encryption and Decryption
+            are implemented manually and
+            integrated with a <strong>Flask</strong>-based
+            web interface.
+        </p>
+        <hr></hr>
 
         <h4>Key Features</h4>
 
@@ -259,11 +277,11 @@ AES Encryption
 
             <li>
                 Convert plaintext into
-                128-bit blocks.
+               <strong>128-bit</strong> blocks.
             </li>
 
             <li>
-                Expand the 256-bit key into
+                Expand the <strong> 256-bit</strong> key into
                 round keys using Key Expansion.
             </li>
 
@@ -272,26 +290,26 @@ AES Encryption
             </li>
 
             <li>
-                13 rounds consisting of:
+              <strong> 13 rounds </strong> consisting of:
                 <ul>
-                    <li>SubBytes</li>
+                   <strong> <li>SubBytes</li>
                     <li>ShiftRows</li>
                     <li>MixColumns</li>
-                    <li>AddRoundKey</li>
+                    <li>AddRoundKey</li> </strong>
                 </ul>
             </li>
 
             <li>
                 Final Round:
                 <ul>
-                    <li>SubBytes</li>
+                   <strong><li>SubBytes</li>
                     <li>ShiftRows</li>
-                    <li>AddRoundKey</li>
+                    <li>AddRoundKey</li> </strong>
                 </ul>
             </li>
 
             <li>
-                Ciphertext is produced.
+                Encrypted text is produced.
             </li>
 
         </ol>
@@ -303,7 +321,7 @@ AES Encryption
         <ul>
 
             <li>
-                User provides a 32-character AES key.
+                User provides a <strong>32-character</strong> AES key.
             </li>
 
             <li>
@@ -313,12 +331,12 @@ AES Encryption
 
             <li>
                 The Flask backend communicates
-                with a C++ AES implementation.
+                with a <strong>C++ AES implementation</strong>.
             </li>
 
             <li>
                 Encryption and decryption are
-                performed by the AES engine.
+                performed by the <strong>AES</strong> engine.
             </li>
 
             <li>
@@ -332,34 +350,23 @@ AES Encryption
 
         <h4>Security Note</h4>
         <p>
-            AES-256 is currently considered
+            <strong>AES-256</strong> is currently considered
             computationally secure against
-            brute-force attacks. A 256-bit key
-            provides 2²⁵⁶ possible combinations,
+            brute-force attacks. A  <strong>256-bit</strong> key
+            provides <strong>2²⁵⁶ </strong> possible combinations,
             making exhaustive key search
             practically impossible with modern
-            computing power.
+            computing power. 
+            <a href="https://medium.com/codex/aes-how-the-most-advanced-encryption-actually-works-b6341c44edb9">Read more</a>
         </p>
-        <hr></hr>
 
-        <h4>Implementation Details</h4>
-        <p>
-            This project uses a custom AES-256
-            implementation written in C++.
-            Core AES operations including
-            SubBytes, ShiftRows, MixColumns,
-            AddRoundKey, Key Expansion,
-            Encryption and Decryption
-            are implemented manually and
-            integrated with a Flask-based
-            web interface.
-
-        </p>
+        <div class="thank-you">
+            <span>✨ Thank You ✨</span>
+        </div>
 
     </div>
 
 </div>
-
 
 {% endblock %}
 
