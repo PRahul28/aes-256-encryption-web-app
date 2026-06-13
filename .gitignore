@@ -7,7 +7,6 @@ __pycache__/
 *.enc
 *.png
 *.zip
-*.txt
 
 # System files
 .DS_Store
