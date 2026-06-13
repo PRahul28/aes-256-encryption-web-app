@@ -156,7 +156,7 @@ This keyspace is so large that exhaustive key searches are considered infeasible
 ### Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone aes-256-encryption-web-app
 cd AES-256-Encryption-Web-App
 ```
 
