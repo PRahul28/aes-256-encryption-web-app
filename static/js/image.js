@@ -1,8 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
-    // ===============================
-    // FILE NAME DISPLAY
-    // ===============================
     function setupFileInput(fileInputId, labelId) {
         const fileInput = document.getElementById(fileInputId);
         const label = document.getElementById(labelId);
@@ -21,9 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // MULTIPLE FILES
             let names = [];
-
             for (let i = 0; i < fileInput.files.length; i++) {
                 names.push(fileInput.files[i].name);
             }
@@ -39,25 +33,17 @@ document.addEventListener("DOMContentLoaded", function () {
     setupFileInput("decryptFile", "decryptFileName");
 
 
-    // ===============================
-    // KEY COUNTER (0/32)
-    // ===============================
-
     function setupKeyCounter(inputId, counterId) {
         const input = document.getElementById(inputId);
         const counter = document.getElementById(counterId);
 
         if (!input || !counter) return;
-
         input.addEventListener("input", function () {
-
             let len = input.value.length;
-
             if (len > 32) len = 32;
-
-            if (len === 32) {
-                counter.innerHTML = `32 / 32 characters <span style="color:green; font-weight:bold;">✔</span>`;
-            } else {
+            if (len === 32) { counter.innerHTML = `32 / 32 characters <span style="color:green; font-weight:bold;">✔</span>`;
+            } 
+            else {
                 counter.textContent = `${len} / 32 characters`;
             }
         });
@@ -70,16 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function copyToClipboard(inputId, button) {
     const input = document.getElementById(inputId);
-    if (!input) return;
+    if(!input) return;
 
     navigator.clipboard.writeText(input.value)
         .then(() => {
             const original = button.innerHTML;
             button.innerHTML = "✔️";
-
-            setTimeout(() => {
-                button.innerHTML = original;
-            }, 1200);
+            setTimeout(() => {button.innerHTML = original;}, 1200);
 
         })
         .catch(() => {

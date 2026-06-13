@@ -3,199 +3,94 @@
 {% block title %}
 Image Encryption
 {% endblock %}
-
 {% block content %}
-
 <div class="main-container">
     <div class="cards-wrapper">
         <div class="aes-card">
-            <h3 class="card-title text-success">🔒 Encrypt Image</h3>
-            <form action="/encrypt-image"
-                  method="POST"
-                  enctype="multipart/form-data">
+            <h3 class="card-title text-success">Encrypt Image</h3>
+            <form action="/encrypt-image" method="POST" enctype="multipart/form-data">
                 <label class="upload-box">
-                    <input
-                        type="file"
-                        id="encryptFile"
-                        name="imageFile"
-                        accept="image/*"
-                        multiple
-                        required>
-                    <h5>Select Image</h5>
-                    <small id="encryptFileName">Click to browse or drag & drop</small>
+                <input type="file" id="encryptFile" name="imageFile" accept="image/*" multiple required>
+                <h5>Select Image</h5>
+                <small id="encryptFileName">Click to browse or drag & drop</small>
                 </label>
-
                 <hr>
-                <input
-                    type="password"
-                    id="enc_key"
-                    name="key"
-                    maxlength="32"
-                    class="form-control"
-                    placeholder="Enter 32 Character AES Key"
-                    required>
-
-                <small id="encCounter">
-                    0 / 32 characters
-                </small>
-
-                <button type="button"
-                        class="btn btn-outline-secondary"
-                        onclick="generateKey('enc_key')">
-                    🎲 Generate Key
-                </button>
-
-                <button type="button"
-                        class="btn btn-outline-success copy-btn"
-                        onclick="copyToClipboard('enc_key', this)">📋
-                </button>
-
+                <input type="password" id="enc_key" name="key" maxlength="32" class="form-control" placeholder="Enter 32 Character AES Key" required>
+                <small id="encCounter">0 / 32 characters </small>
+                <button type="button" class="btn btn-outline-secondary mt-2" onclick="generateKey('enc_key')">🎲 Generate Key </button>
+                <button type="button" class="btn btn-outline-success copy-btn" onclick="copyToClipboard('enc_key', this)">📋 </button>
                 <br><br>
-
-                <button
-                    type="submit"
-                    class="btn btn-success btn-custom">
-
-                    Encrypt Image & Download
-
-                </button>
-
+                <button type="submit" class="btn btn-success btn-custom"> Encrypt </button>
             </form>
-
         </div>
-
 
 
         <div class="divider"></div>
-
         <div class="aes-card">
-            <h3 class="card-title text-primary">
-                🔓 Decrypt Image
-            </h3>
-            <form action="/decrypt-image"
-                  method="POST"
-                  enctype="multipart/form-data">
-
+            <h3 class="card-title text-primary">Decrypt Image</h3>
+            <form action="/decrypt-image" method="POST" enctype="multipart/form-data">
                 <label class="upload-box">
-
-                    <input
-                        type="file"
-                        id="decryptFile"
-                        name="imageFile"
-                        accept=".enc"
-                        multiple
-                        required>
-
-                    <h5>Select Encrypted File</h5>
-
-                    <small id="decryptFileName">
-                        Click to browse encrypted file
-                    </small>
-
+                <input type="file" id="decryptFile" name="imageFile" accept=".enc" multiple required>
+                <h5>Select Encrypted File</h5>
+                <small id="decryptFileName"> Click to browse encrypted file</small>
                 </label>
-
                 <hr>
-
-                <input
-                    type="password"
-                    id="dec_key"
-                    name="key"
-                    maxlength="32"
-                    class="form-control"
-                    placeholder="Enter 32 Character AES Key"
-                    required>
-
-                <small id="decCounter">
-                    0 / 32 characters
-                </small>
-
-                <button type="button"
-                        class="btn btn-outline-primary copy-btn"
-                        onclick="copyToClipboard('dec_key', this)">📋 
-                </button>
-
+                <input type="password" id="dec_key" name="key" maxlength="32" class="form-control" placeholder="Enter 32 Character AES Key" required>
+                <small id="decCounter"> 0 / 32 characters </small>
+                <button type="button" class="btn btn-outline-primary copy-btn mt-2" onclick="copyToClipboard('dec_key', this)">📋 </button>
                 <br><br>
-
-                <button
-                    type="submit"
-                    class="btn btn-primary btn-custom">
-
-                    Decrypt Image & Download
-
-                </button>
-
+                <button type="submit" class="btn btn-primary btn-custom mt-2"> Decrypt </button>
             </form>
-
         </div>
-
     </div>
-
 </div>
 
 
 <div class="container d-flex justify-content-center mt-5">
-
     <div class="info-box">
-
         <h2>Image AES Encryption System</h2>
-
         <p>
             This module extends <strong>AES</strong> encryption to <strong>image</strong> files by converting
             image files into raw binary data instead of hex strings
             and encrypting them using a custom <strong>AES-256</strong> 
             implementation written in <strong>C++</strong>.
         </p>
-
         <hr>
-
         <h4>Core Features</h4>
-
         <ul>
             <li><strong>Single </strong>Image Encryption & Decryption</li>
             <li><strong>Multiple </strong>Images processing along with showing number of images selected</li>
             <li><strong>ZIP </strong>File Handling for Encrypted/Decrypted Files</li>
         </ul>
         <hr>
-
         <h4>Input/Output Format</h4>
-
         <ul>
-            <li><strong>Encrypted </strong>files → <strong>.enc</strong></li>
-            <li><strong>Decrypted </strong>files → original image format (<strong>.png</strong> and <strong>.jpg</strong>)</li>
-            <li><strong>All </strong>operations → downloadable  <strong>ZIP</strong></li>
+            <li><strong>Encrypted </strong>Image files → <strong>.enc</strong></li>
+            <li><strong>Decrypted </strong>Image files → original image format (<strong>.png</strong> or <strong>.jpg</strong>)</li>
+            <li>Both Encrypt and Decrypt operations create downloadable  <strong>ZIP </strong>Files. </li>
         </ul>
         <hr>
-
         <h4>How Image Encryption Works</h4>
-
         <ol>
             <li>Image file is read as raw binary data (not text).</li>
             <li>Data is split into <strong>16-byte</strong> AES blocks.</li>
             <li>AES-256 encryption is applied to each block.</li>
-            <li>Encrypted binary is saved as <strong>.enc file</strong>.</li>
+            <li>Encrypted binary is saved as <strong>.enc </strong>file.</li>
             <li>For decryption, the process is reversed to restore the image.</li>
         </ol>
         <hr>
-
         <h4>Technical Workflow</h4>
-
         <ul>
             <li>Flask handles file upload and temporary storage</li>
             <li><strong>C++</strong> AES engine processes encryption/decryption</li>
             <li>Binary-safe file handling (no <strong>UTF-8</strong> conversion)</li>
             <li>Temporary files are cleaned after processing</li>
         </ul>
-
-        <div class="thank-you">
-            <span>✨ Thank You ✨</span>
-        </div>
-
+        <div class="thank-you"><span>✨ Thank You ✨</span></div>
     </div>
-
 </div>
 
 {% endblock %}
-
 {% block scripts %}
 
 <script

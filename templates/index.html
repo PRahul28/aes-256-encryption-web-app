@@ -6,289 +6,98 @@ AES Encryption
 
 {% block content %}
 <div class="main-container">
-
     <div class="clearfix"></div>
     <div class="cards-wrapper">
         <div class="aes-card">
-
-            <h3 class="card-title text-success">
-                🔒 Encrypt File
-            </h3>
-
-            <form
-                id="encryptForm"
-                action="/encrypt"
-                method="POST"
-                enctype="multipart/form-data">
-
-                <!-- File Upload -->
-
+            <h3 class="card-title text-success">Encrypt File</h3>
+            <form id="encryptForm" action="/encrypt" method="POST" enctype="multipart/form-data">
                 <label class="upload-box">
-
-                    <input
-                        type="file"
-                        id="encryptFile"
-                        name="encryptFile"
-                        accept=".txt">
-
-                    <h5>Select Text File</h5>
-
-                    <small id="encryptFileName">
-                        Click to browse or drag & drop
-                    </small>
-
+                <input type="file" id="encryptFile" name="encryptFile" accept=".txt">
+                <h5>Select Text File</h5>
+                <small id="encryptFileName"> Click to browse or drag & drop</small>
                 </label>
-
-                <!-- Direct Text Input -->
-
                 <hr>
-
-                <label class="form-label">
-                    Direct Text Encryption
-                </label>
-
-                <textarea
-                    id="encryptText"
-                    name="encryptText"
-                    class="form-control"
-                    rows="5"
-                    placeholder="Type text here instead of uploading a file"></textarea>
-                <button
-                    type="button"
-                    class="btn btn-outline-success copy-btn"
-                    onclick="copyText(
-                        'encryptText',
-                        this,
-                        '📋'
-                    )">
-                    📋
-
-                </button>
-
+                <label class="form-label">Direct Text Encryption</label>
+                <textarea id="encryptText" name="encryptText" class="form-control" rows="5" placeholder="Type text here instead of uploading a file"></textarea>
+                <button type="button" class="btn btn-outline-success copy-btn" onclick="copyText('encryptText', this,'📋')">📋</button>
                 <br>
-
-                <input
-                    type="password"
-                    id="enc_key"
-                    name="enc_key"
-                    maxlength="32"
-                    class="form-control"
-                    placeholder="Enter 32 Character AES Key">
-
-                <small id="encCounter">
-                    0 / 32 characters
-                </small>
-
+                <input type="password" id="enc_key" name="enc_key" maxlength="32" class="form-control" placeholder="Enter 32 Character AES Key">
+                <small id="encCounter">0 / 32 characters </small>
                 <br>
-
-                <button
-                    type="button"
-                    class="btn btn-outline-secondary"
-                    onclick="generateKey()">
-                    🎲 Generate Secure Key
-
+                <button type="button" class="btn btn-outline-secondary mt-1 " onclick="generateKey()">🎲 Generate Secure Key </button>
+                <button type="button" class="btn btn-outline-success copy-btn" onclick="copyText('enc_key', this, '📋')">📋
                 </button>
-
-                <button
-                    type="button"
-                    class="btn btn-outline-success copy-btn"
-                    onclick="copyText(
-                        'enc_key',
-                        this,
-                        '📋'
-                    )">
-
-                    📋
-
-                </button>
-
                 <br><br>
-
-                <button
-                    type="submit"
-                    class="btn btn-success btn-custom">
-
-                    Encrypt & Download
-
-                </button>
-
+                <button type="submit" class="btn btn-success btn-custom mt-2 "> Encrypt </button>
             </form>
-
         </div>
 
 
         <div class="divider"></div>
-
-
         <div class="aes-card">
-            <h3 class="card-title text-primary">
-                🔓 Decrypt File
-            </h3>
-
-            <form
-                id="decryptForm"
-                action="/decrypt"
-                method="POST"
-                enctype="multipart/form-data">
-
+            <h3 class="card-title text-primary">Decrypt File </h3>
+            <form id="decryptForm" action="/decrypt" method="POST" enctype="multipart/form-data">
                 <label class="upload-box">
-
-                    <input
-                        type="file"
-                        id="decryptFile"
-                        name="decryptFile"
-                        accept=".enc">
-
+                    <input type="file" id="decryptFile" name="decryptFile" accept=".enc">
                     <h5> Select .enc/.txt File</h5>
-
-                    <small id="decryptFileName">
-                        Click to browse encrypted file
-                    </small>
+                    <small id="decryptFileName">Click to browse encrypted file </small>
                 </label>
                 <hr>
-                <label class="form-label">
-                    Direct Text Decryption
-                </label>
-                <textarea
-                    id="decryptText"
-                    name="decryptText"
-                    class="form-control"
-                    rows="5"
-                    placeholder="Paste encrypted text here"></textarea>
-                <button
-                    type="button"
-                    class="btn btn-outline-primary copy-btn"
-                    onclick="copyText(
-                        'decryptText',
-                        this,
-                        '📋'
-                    )">📋
-
-                </button>
+                <label class="form-label">Direct Text Decryption </label>
+                <textarea id="decryptText" name="decryptText" class="form-control" rows="5"
+                          placeholder="Paste encrypted text here "></textarea>
+                <button type="button" class="btn btn-outline-primary copy-btn" onclick="copyText('decryptText', this,'📋')">📋</button>
+                <br><br>
+                <input type="password" id="dec_key" name="dec_key" maxlength="32" class="form-control" placeholder="Enter 32 Character AES Key">
+                <small id="decCounter"> 0 / 32 characters </small>
                 <br>
-                
-                <br>
-                <input
-                    type="password"
-                    id="dec_key"
-                    name="dec_key"
-                    maxlength="32"
-                    class="form-control"
-                    placeholder="Enter 32 Character AES Key">
-
-                <small id="decCounter">
-                    0 / 32 characters
-                </small>
-                <br>
-
-                <button
-                    type="button"
-                    class="btn btn-outline-primary copy-btn"
-                    onclick="copyText(
-                        'dec_key',
-                        this,
-                        '📋'
-                    )">
-                    📋
-
+                <button type="button" class="btn btn-outline-primary copy-btn" onclick="copyText('dec_key', this, '📋')">📋
                 </button>
                 <br><br>
-
-                <button
-                    type="submit"
-                    class="btn btn-primary btn-custom">
-
-                    Decrypt & Download
-
-                </button>
-
+                <button type="submit" class="btn btn-primary btn-custom">Decrypt </button>
             </form>
-
         </div>
-
     </div>
 
+<div>
     <div class="info-box mt-5">
-
         <h2>About AES-256 Encryption</h2>
-
         <p>
             <strong>Rijndael Algorithm</strong> is selected as the 
             <strong>AES (Advanced Encryption Standard) </strong>
             which is a symmetric-key encryption algorithm used
             worldwide to secure sensitive data.
         </p>
-
         <hr>
-
         <h4>Implementation</h4>
         <p>
             This project uses a custom <strong>AES-256</strong>
             implementation written in <strong>C++</strong>.
-            Using the original research paper by <strong>Joan Daemen </strong> and <strong>Vincent Rijmen</strong>, 
-            the Core <strong>AES</strong> operations like
+            Using the original research paper by 
+            <strong>Joan Daemen </strong> and <strong>Vincent Rijmen</strong>. 
+            The Core <strong>AES</strong> operations like
             SubBytes, ShiftRows, MixColumns,
             AddRoundKey, Key Expansion,
-            Encryption and Decryption
+            Encryption and Decryption methods
             are implemented manually and
             integrated with a <strong>Flask</strong>-based
             web interface.
         </p>
-        <hr></hr>
-
-        <h4>Key Features</h4>
-
-        <ul>
-
-            <li>
-                AES-256 uses a
-                <strong>256-bit key</strong>
-                (32 characters in this project).
-            </li>
-
-            <li>
-                AES operates on fixed
-                <strong>128-bit data blocks</strong>.
-            </li>
-
-            <li>
-                AES-256 performs
-                <strong>14 rounds</strong>
-                of transformation on every block.
-            </li>
-
-            <li>
-                Each round increases resistance
-                against cryptographic attacks.
-            </li>
-
-            <li>
-                The same key is required
-                for successful decryption.
-            </li>
-
-        </ul>
-
         <hr>
-
+        <h4>Key Features</h4>
+        <ul>
+            <li>AES-256 uses a <strong>256-bit key </strong>(<strong>32 </strong>characters in AES-256).</li>
+            <li>AES operates on fixed <strong>128-bit data blocks</strong>.</li>
+            <li>AES-256 performs <strong>14 rounds</strong> of transformation on every block.</li>
+            <li>Each round increases resistance against cryptographic attacks.</li>
+            <li>The same key is required for successful decryption.</li>
+        </ul>
+        <hr>
         <h4>AES Encryption Process</h4>
-
         <ol>
-
-            <li>
-                Convert plaintext into
-               <strong>128-bit</strong> blocks.
-            </li>
-
-            <li>
-                Expand the <strong> 256-bit</strong> key into
-                round keys using Key Expansion.
-            </li>
-
-            <li>
-                Initial AddRoundKey operation.
-            </li>
-
+            <li>Convert plaintext into <strong>128-bit</strong> blocks.</li>
+            <li>Expand the <strong> 256-bit</strong> key into round keys using Key Expansion.</li>
+            <li>Initial AddRoundKey operation.</li>
             <li>
               <strong> 13 rounds </strong> consisting of:
                 <ul>
@@ -298,7 +107,6 @@ AES Encryption
                     <li>AddRoundKey</li> </strong>
                 </ul>
             </li>
-
             <li>
                 Final Round:
                 <ul>
@@ -307,69 +115,36 @@ AES Encryption
                     <li>AddRoundKey</li> </strong>
                 </ul>
             </li>
-
-            <li>
-                Encrypted text is produced.
-            </li>
-
+            <li> Encrypted text is produced.</li>
         </ol>
-
         <hr>
-
         <h4>How This Project Works</h4>
-
         <ul>
-
-            <li>
-                User provides a <strong>32-character</strong> AES key.
-            </li>
-
-            <li>
-                Text can be entered manually
-                or uploaded through a file.
-            </li>
-
-            <li>
-                The Flask backend communicates
-                with a <strong>C++ AES implementation</strong>.
-            </li>
-
-            <li>
-                Encryption and decryption are
-                performed by the <strong>AES</strong> engine.
-            </li>
-
-            <li>
-                Results can be copied directly
-                or downloaded as files.
-            </li>
-
+            <li>User provides a <strong>32-character</strong> AES key.</li>
+            <li>Text can be entered manually or uploaded through a file.</li>
+            <li>The Flask backend communicates with a <strong>C++ AES implementation</strong>.</li>
+            <li>Encryption and decryption are performed by the <strong>AES</strong> engine.</li>
+            <li>Results can be copied directly or downloaded as files.</li>
+            <li>In decryption, if text box shows <strong>undefined </strong> it means the encrypted text or key was wrong.</li>
+            <li>In decryption, if the file does not open than the encrypted text or key was wrong and that created an unreadable file.</li>
         </ul>
-
         <hr>
-
         <h4>Security Note</h4>
         <p>
             <strong>AES-256</strong> is currently considered
             computationally secure against
             brute-force attacks. A  <strong>256-bit</strong> key
-            provides <strong>2²⁵⁶ </strong> possible combinations,
+            provides <strong>2²⁵⁶ </strong> possible combinations
             making exhaustive key search
             practically impossible with modern
             computing power. 
-            <a href="https://medium.com/codex/aes-how-the-most-advanced-encryption-actually-works-b6341c44edb9">Read more</a>
+            <a href="https://medium.com/codex/aes-how-the-most-advanced-encryption-actually-works-b6341c44edb9">Read more</a> on <strong>Medium</strong> Blog post.
         </p>
-
-        <div class="thank-you">
-            <span>✨ Thank You ✨</span>
-        </div>
-
+        <div class="thank-you"><span>✨ Thank You ✨</span></div>
     </div>
-
 </div>
 
 {% endblock %}
-
 {% block scripts %}
 
 <script

@@ -1,8 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cstring>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 extern unsigned char sbox[256];
@@ -13,7 +9,6 @@ extern unsigned char mul9[256];
 extern unsigned char mul11[256];
 extern unsigned char mul13[256];
 extern unsigned char mul14[256];
-
 
 
 constexpr int Nb = 4;
@@ -37,41 +32,28 @@ void KeyExpansion(const unsigned char* key, unsigned char* expKey);
 void AES_Encrypt(unsigned char* buf, const unsigned char* key);
 void AES_Decrypt(unsigned char* buf, const unsigned char* key);
 
-/* =========================
-   FILE UTILITIES
-   ========================= */
-
 vector<unsigned char> ReadFile(const string& filename) {
     ifstream file(filename, ios::binary);
-    if (!file) {
+    if(!file) {
         cerr << "Error opening input file\n";
         exit(1);
     }
 
-    return vector<unsigned char>(
-        (istreambuf_iterator<char>(file)),
-        istreambuf_iterator<char>()
-    );
+    return vector<unsigned char>((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
 }
 
 void WriteFile(const string& filename, const vector<unsigned char>& data) {
     ofstream file(filename, ios::binary);
-    if (!file) {
+    if(!file) {
         cerr << "Error writing output file\n";
         exit(1);
     }
-
     file.write(reinterpret_cast<const char*>(data.data()), data.size());
 }
-
-/* =========================
-   PKCS#7 PADDING
-   ========================= */
 
 void PKCS7Pad(vector<unsigned char>& data) {
     size_t pad = 16 - (data.size() % 16);
     if (pad == 0) pad = 16;
-
     for (size_t i = 0; i < pad; i++) {
         data.push_back((unsigned char)pad);
     }
@@ -79,49 +61,28 @@ void PKCS7Pad(vector<unsigned char>& data) {
 
 void PKCS7Unpad(vector<unsigned char>& data) {
     if (data.empty()) return;
-
     unsigned char pad = data.back();
-    if (pad > 16) return; // safety check
-
+    if (pad > 16) return; 
     data.resize(data.size() - pad);
 }
 
-/* =========================
-   IMAGE AES ENCRYPTION
-   ========================= */
-
-vector<unsigned char> EncryptImage(
-    vector<unsigned char> data,
-    const unsigned char* key
-) {
+vector<unsigned char> EncryptImage(vector<unsigned char> data, const unsigned char* key) {
     PKCS7Pad(data);
-
     for (size_t i = 0; i < data.size(); i += 16) {
         AES_Encrypt(&data[i], key);
     }
-
     return data;
 }
 
-vector<unsigned char> DecryptImage(
-    vector<unsigned char> data,
-    const unsigned char* key
-) {
+vector<unsigned char> DecryptImage(vector<unsigned char> data, const unsigned char* key) {
     for (size_t i = 0; i < data.size(); i += 16) {
         AES_Decrypt(&data[i], key);
     }
-
     PKCS7Unpad(data);
-
     return data;
 }
 
-/* =========================
-   MAIN DRIVER
-   ========================= */
-
 int main(int argc, char* argv[]) {
-
     if (argc < 5) {
         cout << "Usage:\n";
         cout << "encrypt: image.exe encrypt input.png output.enc key\n";
