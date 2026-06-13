@@ -44,13 +44,11 @@ This project features a custom AES-256 implementation written entirely in C++ fo
 2. The 256-bit key is expanded into round keys.
 3. Initial AddRoundKey operation is performed.
 4. 13 rounds execute:
-
    * SubBytes
    * ShiftRows
    * MixColumns
    * AddRoundKey
 5. Final round executes:
-
    * SubBytes
    * ShiftRows
    * AddRoundKey
@@ -128,11 +126,7 @@ All encrypted and decrypted image outputs are packaged into downloadable ZIP fil
 ## Security Note
 
 AES-256 is currently regarded as computationally secure against practical brute-force attacks.
-
-A 256-bit key provides:
-
-2²⁵⁶ possible key combinations
-
+A 256-bit key provides: 2²⁵⁶ possible key combinations
 This keyspace is so large that exhaustive key searches are considered infeasible using modern computing resources.
 
 ---
@@ -196,13 +190,13 @@ pip install -r requirements.txt
 
 For Linux users: 
 ```bash
-g++ aesLinux.cpp -o a
+g++ aesLinux.cpp -o aesLinux
 g++ image.cpp -o image
 ```
 
 For Windows (MinGW):
 ```bash
-g++ aesLinux.cpp -o a.exe
+g++ aesLinux.cpp -o aesLinux.exe
 g++ image.cpp -o image.exe
 ```
 

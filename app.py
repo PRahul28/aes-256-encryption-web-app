@@ -40,7 +40,7 @@ def encrypt_image():
         output_temp.close()
 
         subprocess.run([
-            '.\\image.exe',
+            './image',
             'encrypt',
             input_path,
             output_path,
@@ -98,7 +98,7 @@ def decrypt_image():
         output_temp.close()
 
         subprocess.run([
-            '.\\image.exe',
+            './image',
             'decrypt',
             input_path,
             output_path,
@@ -146,7 +146,7 @@ def encrypt():
 
     result = subprocess.run(
         [
-            '.\\a.exe',
+            './aesLinux',
             'encrypt',
             plaintext,
             key
@@ -201,7 +201,7 @@ def decrypt():
 
     result = subprocess.run(
         [
-            '.\\a.exe',
+            './aesLinux',
             'decrypt',
             ciphertext,
             key
