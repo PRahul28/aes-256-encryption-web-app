@@ -191,13 +191,13 @@ pip install -r requirements.txt
 For Linux users: 
 ```bash
 g++ aesLinux.cpp -o aesLinux
-g++ image.cpp -o image
+g++ image.cpp aes.cpp -o image
 ```
 
 For Windows (MinGW):
 ```bash
 g++ aesLinux.cpp -o aesLinux.exe
-g++ image.cpp -o image.exe
+g++ image.cpp aes.cpp -o image.exe
 ```
 
 ### Run Application
