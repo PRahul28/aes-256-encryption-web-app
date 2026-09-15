@@ -196,7 +196,7 @@ g++ image.cpp aes.cpp -o image
 
 For Windows (MinGW):
 ```bash
-g++ aesLinux.cpp -o aesLinux.exe
+g++ aes.cpp -o aes.exe
 g++ image.cpp aes.cpp -o image.exe
 ```
 
